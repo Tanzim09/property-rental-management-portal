@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Property Details{% endblock %}
+
+{% block content %}
+<div class="property-detail-card">
+  <h2 class="property-title">{{ property.title }}</h2>
+
+  <div class="property-info">
+    <p><strong>Address:</strong> {{ property.address }}</p>
+    <p>
+      <strong>Bedrooms:</strong> {{ property.bedrooms }} |
+      <strong>Bathrooms:</strong> {{ property.bathrooms }} |
+      <strong>SqFt:</strong> {{ property.sqft }}
+    </p>
+    <p><strong>Rent:</strong> ${{ property.monthly_rent }}</p>
+    <p class="property-description">{{ property.description }}</p>
+  </div>
+
+  <div class="property-actions">
+    {% if request.user.is_authenticated %}
+      {% if request.user == property.landlord or request.user.is_staff %}
+        <a href="{% url 'rentals:property_update' property.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'rentals:property_delete' property.pk %}" class="btn btn-danger">Delete</a>
+      {% endif %}
+      <a href="{% url 'rentals:apply' property.pk %}" class="btn btn-primary">Apply to Rent</a>
+    {% else %}
+      <p><a href="{% url 'accounts:login' %}" class="text-link">Login</a> to apply.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

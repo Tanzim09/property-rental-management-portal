@@ -1,0 +1,649 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1e40af;
+  --navbar-bg: #0f172a;
+  --bg: #f6f8fb;
+  --card-bg: #ffffff;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --radius: 10px;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+body {
+  background: var(--bg);
+  color: var(--text-dark);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+.navbar {
+  background: var(--navbar-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+}
+
+.brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.username {
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn.small {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-outline-light {
+  border: 1px solid #cbd5e1;
+  color: #e2e8f0;
+  background: transparent;
+}
+
+.btn-outline-light:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-light {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-light:hover {
+  background: #cbd5e1;
+}
+
+/* =========================================================
+   CONTAINER + CARD LAYOUT
+   ========================================================= */
+.container {
+  max-width: 1200px;
+  margin: 3.5rem auto 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.page-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* =========================================================
+   TABLE STYLING
+   ========================================================= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.table thead {
+  background: var(--navbar-bg);
+  color: white;
+}
+
+.table th, .table td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.table tbody tr:nth-child(odd) {
+  background: #f9fafb;
+}
+
+.table tbody tr:hover {
+  background: #e0e7ff;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+.form-card {
+  max-width: 450px;
+  margin: 4rem auto;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+
+/* =========================================================
+   DASHBOARD KPI CARDS
+   ========================================================= */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.card .num {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   BUTTONS GENERAL
+   ========================================================= */
+.btn {
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.9rem 0;
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-success {
+  background: var(--success);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-outline {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+
+/* -------- PROPERTY DETAIL PAGE -------- */
+.property-detail-card {
+  max-width: 750px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+}
+
+.property-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  margin-bottom: 1rem;
+}
+
+.property-info p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.6rem;
+}
+
+.property-description {
+  margin-top: 1.2rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.property-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Buttons (shared with rest of site) */
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
+}
+
+/* Login link */
+.text-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   PROPERTY FORM PAGE
+   ========================================================= */
+.form-card {
+  max-width: 650px;
+  margin: 3rem auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 3rem;
+}
+
+.form-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.styled-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.35rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select,
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.help-text {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.btn.full-width {
+  width: 100%;
+  padding: 0.9rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.btn.full-width:hover {
+  background: var(--primary-hover);
+}
+
+
+
+.badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.badge.approved { background: #dcfce7; color: #166534; }
+.badge.pending { background: #fef9c3; color: #92400e; }
+.badge.rejected { background: #fee2e2; color: #991b1b; }
+
+
+/* === PROPERTY LISTING GRID FIX === */
+
+.listings-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.btn-primary-add {
+    background: #2563eb;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.property-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    transition: 0.25s ease;
+}
+
+.property-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+}
+
+.property-image-wrapper {
+    height: 230px;
+    overflow: hidden;
+}
+
+.property-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.property-card:hover .property-image {
+    transform: scale(1.02);
+}
+
+.property-info {
+    padding: 1.4rem;
+}
+
+.property-info .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.address {
+    margin-top: 2px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.property-specs {
+    display: flex;
+    gap: 1rem;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.property-specs .spec svg {
+    margin-right: 4px;
+    vertical-align: -2px;
+}
+
+.rent {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-view {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #e9f0ff;
+    border: 1px solid #4e5fff;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #4e5fff;
+    transition: all 0.2s ease;
+}
+
+.btn-view:hover {
+    background: #4e5fff;
+    color: #fff;
+}
+
+
+.property-specs {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;              
+    margin: 1rem 0 1.2rem 0;
+    font-size: 1rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.property-specs .spec {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spec-icon {
+    width: 20px;             
+    height: 20px;
+    fill: #5a6cff;           
+    opacity: 0.95;
+}

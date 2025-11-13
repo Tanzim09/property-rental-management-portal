@@ -1,0 +1,11 @@
+<!-- /templates/payment_mark_paid.html -->
+{% extends 'base.html' %}
+{% block title %}Mark Payment Paid{% endblock %}
+{% block content %}
+<h1>Mark Payment Paid</h1>
+<p><strong>Due:</strong> {{ payment.due_date }} | <strong>Amount:</strong> ${{ payment.amount }} | <strong>Status:</strong> {{ payment.status }}</p>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Record Payment</button>
+</form>
+{% endblock %}

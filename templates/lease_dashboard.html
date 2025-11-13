@@ -1,0 +1,26 @@
+<!-- /templates/lease_dashboard.html -->
+{% extends 'base.html' %}
+{% block title %}Lease Dashboard{% endblock %}
+{% block content %}
+<h1>Leases</h1>
+<table>
+  <thead>
+    <tr><th>Property</th><th>Tenant</th><th>Start</th><th>End</th><th>Rent</th><th>Active</th><th>Ticket</th></tr>
+  </thead>
+  <tbody>
+  {% for l in leases %}
+    <tr>
+      <td>{{ l.property.title }}</td>
+      <td>{{ l.tenant.username }}</td>
+      <td>{{ l.start_date }}</td>
+      <td>{{ l.end_date }}</td>
+      <td>${{ l.monthly_rent }}</td>
+      <td>{{ l.is_active }}</td>
+      <td><a href="{% url 'rentals:maintenance_create' l.pk %}">New Ticket</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="7">No leases.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

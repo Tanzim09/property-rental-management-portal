@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Payments{% endblock %}
+{% block content %}
+  <h1>Payments</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Lease</th>
+        <th>Due</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Paid On</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in payments %}
+      <tr>
+        <td>{{ p.lease.property.title }}</td>
+        <td>{{ p.due_date|date:"M d, Y" }}</td>
+        <td>${{ p.amount }}</td>
+        <td>{{ p.status }}</td>
+        <td>{{ p.paid_on|default:"—" }}</td>
+        <td>
+          {% if p.status != 'PAID' %}
+            <a href="{% url 'rentals:payment_mark_paid' p.pk %}" class="btn btn-success btn-sm">Mark Paid</a>
+          {% else %} — {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="text-muted">No payments available.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

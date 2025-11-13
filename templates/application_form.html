@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Apply for {{ property.title }}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h2 class="form-title">Apply for {{ property.title }}</h2>
+
+  <form method="POST" class="styled-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <small class="error">{{ field.errors|striptags }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary full-width">Submit Application</button>
+  </form>
+</div>
+{% endblock %}
