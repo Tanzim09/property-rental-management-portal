@@ -23,25 +23,37 @@ class Profile(models.Model):
 
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
+
 class Property(models.Model):
-    landlord = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="properties")
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    monthly_rent = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-    bedrooms = models.PositiveIntegerField(default=1)
-    bathrooms = models.PositiveIntegerField(default=1)
-    sqft = models.PositiveIntegerField(default=300)
+    monthly_rent = models.DecimalField(max_digits=10, decimal_places=2)
+    bedrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
+    sqft = models.IntegerField()
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="property_images/", blank=True, null=True)  
+    landlord = models.ForeignKey(User, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def first_image(self):
+        img = self.images.first()
+        return img.image.url if img else None
 
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("rentals:property_detail", args=[self.pk])
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="property_images/")
+
+    def __str__(self):
+        return f"Image of {self.property.title}"
+
 
 
 
