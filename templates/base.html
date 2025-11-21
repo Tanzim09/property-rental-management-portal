@@ -12,20 +12,30 @@
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-left">
-      <a href="{% url 'rentals:listings' %}" class="brand">🏠 Property Portal</a>
+      <a href="{% url 'rentals:listings' %}" class="brand">Property Portal</a>
       <ul class="nav-links">
         <li><a href="{% url 'rentals:listings' %}">Listings</a></li>
-        <li><a href="{% url 'rentals:applications' %}">Applications</a></li>
-        <li><a href="{% url 'rentals:lease_dashboard' %}">Leases</a></li>
-        <li><a href="{% url 'rentals:payments' %}">Payments</a></li>
-        <li><a href="{% url 'rentals:maintenance_list' %}">Maintenance</a></li>
-        <li><a href="{% url 'rentals:admin_dashboard' %}">Dashboard</a></li>
+
+        {% if user.is_authenticated %}
+          {% if user.profile.role == "LANDLORD" or user.is_staff %}
+            <li><a href="{% url 'rentals:applications' %}">Applications</a></li>
+            
+          {% endif %}
+
+          <li><a href="{% url 'rentals:lease_dashboard' %}">Leases</a></li>
+          <li><a href="{% url 'rentals:payments' %}">Payments</a></li>
+          <li><a href="{% url 'rentals:maintenance_list' %}">Maintenance</a></li>
+          <li><a href="{% url 'rentals:admin_dashboard' %}">Dashboard</a></li>
+        {% endif %}
       </ul>
     </div>
 
     <div class="nav-right">
       {% if user.is_authenticated %}
-        <span class="username">Hi, <strong>{{ user.username }}</strong></span>
+        <span class="username">
+          Hi, <strong>{{ user.username }}</strong>
+          <span class="role-badge">{{ user.profile.role|capfirst }}</span>
+        </span>
         <a href="{% url 'accounts:logout' %}" class="btn btn-outline-light small">Logout</a>
       {% else %}
         <a href="{% url 'accounts:login' %}" class="btn btn-light small">Login</a>
@@ -35,14 +45,11 @@
   </div>
 </nav>
 
-
 <div class="container">
   {% block content %}{% endblock %}
 </div>
 
-<footer>
-  © {{ now|date:"Y" }} Property Rental & Management Portal
-</footer>
+
 
 </body>
 </html>

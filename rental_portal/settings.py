@@ -123,3 +123,5 @@ LOGOUT_REDIRECT_URL = "rentals:listings"
 LOGIN_REDIRECT_URL = "rentals:listings"
 LOGIN_URL = "accounts:login"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

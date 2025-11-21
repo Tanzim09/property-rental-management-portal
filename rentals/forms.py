@@ -1,4 +1,4 @@
-# /rentals/forms.py
+
 from django import forms
 from .models import Property, Application, MaintenanceTicket, Payment
 
@@ -7,9 +7,6 @@ class PropertyForm(forms.ModelForm):
         model = Property
         fields = ["title", "address", "monthly_rent", "bedrooms", "bathrooms", "sqft", "description"]
 
-
-# No PropertyImageForm needed!
-# We handle images through request.FILES.getlist("images")
 
 
 class ApplicationForm(forms.ModelForm):
@@ -25,6 +22,20 @@ class MaintenanceForm(forms.ModelForm):
 
 
 class PaymentMarkPaidForm(forms.ModelForm):
+    METHOD_CHOICES = [
+        ('CASH', 'Cash'),
+        ('BANK_TRANSFER', 'Bank Transfer'),
+        ('MOBILE_PAY', 'Mobile Payment (bKash, Nagad, etc.)'),
+        ('CARD', 'Credit/Debit Card'),
+        ('CHECK', 'Check'),
+    ]
+
+    method = forms.ChoiceField(
+        choices=METHOD_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        required=True,
+    )
+
     class Meta:
         model = Payment
-        fields = ["method"]
+        fields = ['method']

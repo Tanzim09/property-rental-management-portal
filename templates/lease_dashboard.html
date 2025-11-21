@@ -1,26 +1,49 @@
-<!-- /templates/lease_dashboard.html -->
-{% extends 'base.html' %}
-{% block title %}Lease Dashboard{% endblock %}
+{% extends "base.html" %}
+{% block title %}Leases{% endblock %}
+
 {% block content %}
-<h1>Leases</h1>
-<table>
-  <thead>
-    <tr><th>Property</th><th>Tenant</th><th>Start</th><th>End</th><th>Rent</th><th>Active</th><th>Ticket</th></tr>
-  </thead>
-  <tbody>
-  {% for l in leases %}
-    <tr>
-      <td>{{ l.property.title }}</td>
-      <td>{{ l.tenant.username }}</td>
-      <td>{{ l.start_date }}</td>
-      <td>{{ l.end_date }}</td>
-      <td>${{ l.monthly_rent }}</td>
-      <td>{{ l.is_active }}</td>
-      <td><a href="{% url 'rentals:maintenance_create' l.pk %}">New Ticket</a></td>
-    </tr>
-  {% empty %}
-    <tr><td colspan="7">No leases.</td></tr>
-  {% endfor %}
-  </tbody>
-</table>
+
+<div class="page-container">
+
+    <h1 class="listings-title">Leases</h1>
+
+    {% if leases %}
+        <div class="lease-list">
+
+            {% for l in leases %}
+            <div class="lease-card">
+
+                <div class="lease-header">
+                    <h2 class="lease-title">{{ l.property.title }}</h2>
+                    <span class="lease-status {{ l.is_active|yesno:'active,inactive' }}">
+                        {{ l.is_active|yesno:"Active,Inactive" }}
+                    </span>
+                </div>
+
+                <div class="lease-info">
+                    <p><strong>Tenant:</strong> {{ l.tenant.username }}</p>
+
+                    <p>
+                        <strong>Duration:</strong>
+                        {{ l.start_date|date:"M. d, Y" }} →
+                        {{ l.end_date|date:"M. d, Y" }}
+                    </p>
+
+                    <p><strong>Rent:</strong> ${{ l.monthly_rent }}</p>
+                    <p><strong>Deposit:</strong> ${{ l.security_deposit }}</p>
+                </div>
+
+                <a href="{% url 'rentals:maintenance_create' l.pk %}" class="btn-primary lease-btn">New Ticket</a>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+        <p class="empty-msg">No leases found.</p>
+    {% endif %}
+
+</div>
+
 {% endblock %}

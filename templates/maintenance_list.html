@@ -1,35 +1,49 @@
-<!-- /templates/maintenance_list.html -->
 {% extends 'base.html' %}
 {% block title %}Maintenance Tickets{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="page-card">
-    <h2>Maintenance Tickets</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Lease</th>
-          <th>Title</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in tickets %}
-        <tr>
-          <td>{{ forloop.counter }}</td>
-          <td>{{ ticket.lease.property.title }}</td>
-          <td>{{ ticket.title }}</td>
-          <td>{{ ticket.status }}</td>
-          <td><a href="#" class="btn btn-outline small">View</a></td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5" class="text-center text-muted">No tickets available.</td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <h1 class="page-title">Maintenance Tickets</h1>
+
+    {% if tickets %}
+      <div class="overflow-x-auto">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Lease</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ ticket.lease.rental_property.title }}</td>
+              <td>{{ ticket.title }}</td>
+              <td>
+                  <span class="ticket-status-badge ticket-status-{{ ticket.status|lower }}">
+                      {{ ticket.get_status_display }}
+                  </span>
+              </td>
+              <td class="text-right">
+                {# This matches urls.py: path("ticket/<int:pk>/edit/", ...) name="maintenance_update" :contentReference[oaicite:1]{index=1} #}
+                <a href="{% url 'rentals:maintenance_update' ticket.pk %}" class="btn-view-primary">
+                    View
+                </a>
+
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="empty-msg">No tickets available.</p>
+    {% endif %}
   </div>
 </div>
-
 {% endblock %}

@@ -1,11 +1,124 @@
-<!-- /templates/payment_mark_paid.html -->
 {% extends 'base.html' %}
-{% block title %}Mark Payment Paid{% endblock %}
+{% load static %}
+
+{% block title %}Mark Payment as Paid{% endblock %}
+
 {% block content %}
-<h1>Mark Payment Paid</h1>
-<p><strong>Due:</strong> {{ payment.due_date }} | <strong>Amount:</strong> ${{ payment.amount }} | <strong>Status:</strong> {{ payment.status }}</p>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Record Payment</button>
-</form>
+<div class="container">
+    <div class="form-card" style="max-width: 560px; margin: 3rem auto;">
+
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 28px; font-weight: 700; color: var(--text-dark); margin: 0;">
+                Mark Payment as Paid
+            </h1>
+            <p style="color: var(--text-muted); margin-top: 8px;">
+                Confirm payment details below
+            </p>
+        </div>
+
+        <!-- Payment Summary Card -->
+        <div style="background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 100%);
+                    border: 1px solid #c2d9ff;
+                    border-radius: 14px;
+                    padding: 1.5rem;
+                    margin-bottom: 1.8rem;
+                    box-shadow: 0 4px 12px rgba(37,99,235,0.08);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                        gap: 1rem; text-align: center;">
+                <div>
+                    <p style="font-size:13px;color:var(--text-muted);margin:0 0 6px 0;font-weight:500;">Due Date</p>
+                    <p style="font-size:18px;font-weight:700;color:var(--text-dark);margin:0;">
+                        {{ payment.due_date|date:"M d, Y" }}
+                    </p>
+                </div>
+                <div>
+                    <p style="font-size:13px;color:var(--text-muted);margin:0 0 6px 0;font-weight:500;">Amount</p>
+                    <p style="font-size:22px;font-weight:700;color:#2563eb;margin:0;">
+                        ${{ payment.amount|floatformat:2 }}
+                    </p>
+                </div>
+                <div>
+                    <p style="font-size:13px;color:var(--text-muted);margin:0 0 6px 0;font-weight:500;">Status</p>
+                    <span style="padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600;
+                                 {% if payment.status == 'PAID' %}
+                                     background:#d1fae5;color:#065f46;
+                                 {% elif payment.status == 'OVERDUE' %}
+                                     background:#fee2e2;color:#991b1b;
+                                 {% else %}
+                                     background:#fef3c7;color:#92400e;
+                                 {% endif %}">
+                        {{ payment.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-top:1rem;text-align:center;">
+                <p style="font-size:15px;color:var(--text-muted);margin:0;">
+                    For lease: <strong style="color:var(--text-dark);">
+                        {{ payment.lease.rental_property.title }}
+                    </strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Late‑fee notice -->
+        {% if payment.status == "OVERDUE" and payment.late_fee_applied %}
+        <div style="background:#fee2e2;border:1px solid #fecaca;color:#991b1b;
+                    padding:14px;border-radius:10px;font-size:14px;
+                    margin-bottom:1.5rem;text-align:center;">
+            <strong>Warning: Late Fee Applied</strong> — A 5% late fee has been added.
+        </div>
+        {% endif %}
+
+        <!-- Form -->
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="modern-form-group">
+                <label for="{{ form.method.id_for_label }}" class="form-label">
+                    Payment Method <span style="color:#dc2626;">*</span>
+                </label>
+
+                {# ----  DROPDOWN  ---- #}
+                <select name="method" id="{{ form.method.id_for_label }}"
+                        class="form-control"
+                        required>
+                    <option value="" {% if not form.method.value %}selected{% endif %}>
+                         Select a method 
+                    </option>
+                    {% for choice in form.method.field.choices %}
+                        <option value="{{ choice.0 }}"
+                                {% if form.method.value == choice.0 %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display:flex;gap:1rem;margin-top:2rem;">
+                <a href="{% url 'rentals:payments' %}"
+                   style="flex:1;text-align:center;padding:14px;
+                          border:1px solid #d1d5db;border-radius:10px;
+                          background:#f9fafb;color:#374151;font-weight:600;
+                          text-decoration:none;transition:0.2s;">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="modern-btn-primary"
+                        style="flex:2;display:flex;align-items:center;
+                               justify-content:center;gap:10px;">
+                    <svg width="20" height="20" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Record Payment as Paid
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

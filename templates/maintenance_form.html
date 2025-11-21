@@ -1,10 +1,35 @@
-<!-- /templates/maintenance_form.html -->
 {% extends 'base.html' %}
-{% block title %}Maintenance{% endblock %}
+{% block title %}Maintenance Ticket{% endblock %}
+
 {% block content %}
-<h1>Maintenance Ticket</h1>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+<div class="container">
+    <div class="form-card">
+        <h1 class="form-title">
+            {% if ticket %}Edit Maintenance Ticket{% else %}New Maintenance Ticket{% endif %}
+        </h1>
+
+        <form method="post" class="styled-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="modern-label">
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="text-muted">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="modern-error">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="modern-btn-primary">
+                Save Ticket
+            </button>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -1,36 +1,163 @@
-<!-- /templates/applications.html -->
 {% extends 'base.html' %}
-{% block title %}Applications{% endblock %}
+{% load static %}
+
+{% block title %}Applications Inbox{% endblock %}
+
 {% block content %}
 <div class="container">
-  <div class="page-card">
-    <h2>Applications Inbox</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Property</th>
-          <th>Tenant</th>
-          <th>Status</th>
-          <th>Message</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for app in applications %}
-        <tr>
-          <td>{{ app.property.title }}</td>
-          <td>{{ app.tenant.username }}</td>
-          <td>
-            <span class="badge {{ app.status|lower }}">{{ app.status }}</span>
-          </td>
-          <td>{{ app.message }}</td>
-          <td><a href="#" class="btn btn-outline small">View</a></td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5" class="text-center text-muted">No applications found.</td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <div class="page-card">
+        <!-- unified page title style -->
+        <h1 class="page-title">Applications Inbox</h1>
+
+        {% if applications %}
+        <div class="overflow-x-auto">
+            <!-- use dedicated table class for premium styling -->
+            <table class="applications-table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Tenant</th>
+                        <th>Status</th>
+                        <th>Message</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="font-medium">{{ app.rental_property.title }}</td>
+                        <td>{{ app.tenant.username }}</td>
+                        <td>
+                            <span class="badge {{ app.status|lower }}">
+                                {{ app.get_status_display }}
+                            </span>
+                        </td>
+                        <td class="max-w-xs">
+                            <p class="truncate text-sm text-gray-600" title="{{ app.message }}">
+                                {{ app.message|truncatechars:50 }}
+                            </p>
+                        </td>
+                        <td>
+                            <button type="button"
+                                    class="btn btn-primary small view-app-btn"
+                                    data-app-id="{{ app.id }}"
+                                    data-property="{{ app.rental_property.title|escape }}"
+                                    data-tenant="{{ app.tenant.username|escape }}"
+                                    data-message="{{ app.message|escape }}"
+                                    data-status="{{ app.status }}"
+                                    data-submitted="{{ app.submitted_at|date:'M d, Y H:i' }}"
+                                    data-approve-url="{{ app.approve_url }}"
+                                    data-reject-url="{{ app.reject_url }}">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-gray-500 py-8">No applications found.</p>
+        {% endif %}
+    </div>
 </div>
+
+<!-- PREMIUM MODAL -->
+<div id="appModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Application Details</h3>
+            <button type="button" class="modal-close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="modal-grid">
+                <div>
+                    <p class="modal-label">Property</p>
+                    <p id="modal-property" class="modal-value"></p>
+                </div>
+                <div>
+                    <p class="modal-label">Tenant</p>
+                    <p id="modal-tenant" class="modal-value"></p>
+                </div>
+            </div>
+
+            <div class="modal-grid">
+                <div>
+                    <p class="modal-label">Submitted On</p>
+                    <p id="modal-submitted" class="modal-value"></p>
+                </div>
+                <div>
+                    <p class="modal-label">Status</p>
+                    <span id="modal-status-badge"></span>
+                </div>
+            </div>
+
+            <div>
+                <p class="modal-label">Message</p>
+                <div id="modal-message" class="modal-message-box"></div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="modal-close btn btn-outline small">Close</button>
+            <div id="action-buttons"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('appModal');
+    const closeBtns = document.querySelectorAll('.modal-close');
+    const actionDiv = document.getElementById('action-buttons');
+
+    document.querySelectorAll('.view-app-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const d = this.dataset;
+
+            document.getElementById('modal-property').textContent = d.property;
+            document.getElementById('modal-tenant').textContent = d.tenant;
+            document.getElementById('modal-message').textContent = d.message;
+            document.getElementById('modal-submitted').textContent = d.submitted;
+
+            const badge = document.getElementById('modal-status-badge');
+            const txt = d.status === 'PENDING'
+                ? 'Pending'
+                : d.status === 'APPROVED'
+                ? 'Approved'
+                : 'Rejected';
+            badge.textContent = txt;
+            badge.className = d.status.toLowerCase();
+
+            actionDiv.innerHTML = '';
+            if (d.status === 'PENDING') {
+                actionDiv.innerHTML = `
+                    <form method="post" action="${d.rejectUrl}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mr-3"
+                                onclick="return confirm('Reject this application?')">
+                            Reject
+                        </button>
+                    </form>
+                    <form method="post" action="${d.approveUrl}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success"
+                                onclick="return confirm('Approve and create lease?')">
+                            Approve
+                        </button>
+                    </form>
+                `;
+            }
+
+            modal.classList.add('visible');
+        });
+    });
+
+    closeBtns.forEach(b => b.addEventListener('click', () => modal.classList.remove('visible')));
+    modal.addEventListener('click', e => {
+        if (e.target === modal) modal.classList.remove('visible');
+    });
+});
+</script>
 {% endblock %}

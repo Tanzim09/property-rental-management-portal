@@ -2,33 +2,59 @@
 {% block title %}Property {{ mode }}{% endblock %}
 
 {% block content %}
-<div class="form-card">
-  <h2 class="form-title">
-    {% if mode == "Create" %}
-      Create New Property
-    {% else %}
-      Edit Property
-    {% endif %}
-  </h2>
 
-  <form method="POST" enctype="multipart/form-data" class="styled-form">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
+<div class="property-form-wrapper">
 
-    {% for field in form %}
-      <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.help_text %}
-          <small class="help-text">{{ field.help_text }}</small>
-        {% endif %}
-        {% if field.errors %}
-          <small class="error">{{ field.errors|striptags }}</small>
-        {% endif %}
-      </div>
-    {% endfor %}
+    <div class="property-form-card">
+        <h2 class="property-form-title">
+            {% if mode == "Create" %}
+                Add a New Property
+            {% else %}
+                Edit Property Details
+            {% endif %}
+        </h2>
 
-    <button type="submit" class="btn btn-primary full-width">Save Property</button>
-  </form>
+        <form method="POST" enctype="multipart/form-data" class="modern-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <!-- Render Django Fields -->
+            {% for field in form %}
+                <div class="modern-form-group">
+                    <label for="{{ field.id_for_label }}" class="modern-label">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <small class="modern-help">{{ field.help_text }}</small>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="modern-error">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <!-- ✅ MULTIPLE IMAGE UPLOAD FIELD (Manually added) -->
+            <div class="modern-form-group">
+                <label class="modern-label">Images</label>
+                <input type="file" name="images" multiple>
+            </div>
+
+            <!-- Image Preview Placeholder (optional, no JS required yet) -->
+            <div class="image-preview-box" id="previewBox" style="display:none;">
+                <p class="preview-title">Selected Images:</p>
+                <div id="previewContainer"></div>
+            </div>
+
+            <button type="submit" class="modern-btn-primary full-width-btn">
+                Save Property
+            </button>
+        </form>
+    </div>
+
 </div>
+
 {% endblock %}
