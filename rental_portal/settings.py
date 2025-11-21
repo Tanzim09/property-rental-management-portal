@@ -18,7 +18,12 @@ SECRET_KEY = 'django-insecure-1k4$*i&$rkny(qrnx_)b!^kykgz^)-&=5^*-u^_!f!ft!#u8$^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "property-rental-management-portal.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 
 
 # Application definition
