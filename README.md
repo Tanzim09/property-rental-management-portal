@@ -44,13 +44,13 @@ platform.
 
 ![Register Page](assets/screenshots/Register.png)
 
-### Property Listings POV Tenant
+### Home Page POV Tenant
 
-![Property Listings POV Tenant](assets/screenshots/listings_Tenant.png)
+![Property Listings POV Tenant](assets/screenshots/home_Tenant.png)
 
-### Property Listings POV Landlord
+### Home Page POV Landlord
 
-![Property Listings POV Landlord](assets/screenshots/listings_Landlord.png)
+![Property Listings POV Landlord](assets/screenshots/home_Landlord.png)
 
 ### Property Detail Page
 
