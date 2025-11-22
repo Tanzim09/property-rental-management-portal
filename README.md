@@ -60,6 +60,10 @@ platform.
 
 ![Property Detail](assets/screenshots/property_detail_landlord.png)
 
+### Applicatin Inbox POV Landlord
+
+![Application_inbox](assets/screenshots/application_inbox.png)
+
 ### Leases
 
 ![Leases](assets/screenshots/Leases.png)
@@ -69,17 +73,14 @@ platform.
 ![Payments](assets/screenshots/Payments.png)
 ![Paying Rent](assets/screenshots/Paying_Rent.png)
 
-### Submit Application
 
-![Application Form](assets/screenshots/application_form.png)
-
-### Maintenance Ticket
+### Maintenance Ticket (Maintenance Tickets allow tenants to report issues related to their rental property (e.g., broken appliances, water leakage, electricity problems).)
 
 ![Maintenance Ticket](assets/screenshots/maintenance_ticket.png)
 
-### Payment History
+### Admin Dashboard
 
-![Payments](assets/screenshots/payments.png)
+![Dashboard](assets/screenshots/Dashboard.png)
 
 ------------------------------------------------------------------------
 
