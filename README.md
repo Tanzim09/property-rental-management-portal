@@ -15,7 +15,7 @@ platform.
 > Use the demo accounts below for instant access.
 
 > **Note:** The live demo runs on Render's free tier --- it may take
-> **30--60 seconds** to wake up if idle.\
+> **30--60 seconds** to wake up if idle OR might be completly down if DB gets expired. Will upgrade soon!!
 > Please wait after opening the link.
 
 ------------------------------------------------------------------------
@@ -36,17 +36,33 @@ platform.
 
 ## Screenshots
 
-### Property Listings
+### Login Page
 
-![Property Listings](assets/screenshots/listings.png)
+![Login Page](assets/screenshots/Login.png)
+
+### Register Page
+
+![Register Page](assets/screenshots/Register.png)
+
+### Property Listings POV Tenant
+
+![Property Listings POV Tenant](assets/screenshots/listings_Tenant.png)
+
+### Property Listings POV Landlord
+
+![Property Listings POV Landlord](assets/screenshots/listings_Landlord.png)
 
 ### Property Detail Page
 
 ![Property Detail](assets/screenshots/property_detail.png)
 
-### Landlord Dashboard
+### Applying To Rent
 
-![Landlord Dashboard](assets/screenshots/admin_dashboard.png)
+![Applying To Rent](assets/screenshots/rent_apply.png)
+
+### Leases
+
+![Leases](assets/screenshots/Leases.png)
 
 ### Tenant Lease & Payments
 
