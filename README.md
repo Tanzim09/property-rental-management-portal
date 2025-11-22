@@ -52,9 +52,13 @@ platform.
 
 ![Property Listings POV Landlord](assets/screenshots/home_Landlord.png)
 
-### Property Detail Page
+### Property Detail Page POV Tenant
 
-![Property Detail](assets/screenshots/property_detail.png)
+![Property Detail](assets/screenshots/property_detail_tenant.png)
+
+### Property Detail Page POV Landlord
+
+![Property Detail](assets/screenshots/property_detail_landlord.png)
 
 ### Applying To Rent
 
