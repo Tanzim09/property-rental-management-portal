@@ -60,17 +60,14 @@ platform.
 
 ![Property Detail](assets/screenshots/property_detail_landlord.png)
 
-### Applying To Rent
-
-![Applying To Rent](assets/screenshots/rent_apply.png)
-
 ### Leases
 
 ![Leases](assets/screenshots/Leases.png)
 
-### Tenant Lease & Payments
+### Payments
 
-![Lease Dashboard](assets/screenshots/lease_dashboard.png)
+![Payments](assets/screenshots/Payments.png)
+![Paying Rent](assets/screenshots/Paying_Rent.png)
 
 ### Submit Application
 
